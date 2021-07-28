@@ -11,10 +11,10 @@ class HuntingPage extends StatefulWidget {
 }
 
 class _HuntingPageState extends State<HuntingPage> {
-  int indexIdPerson = 0;
+  int _indexIdPerson = 0;
 
-  void randomValue() {
-    indexIdPerson = Random().nextInt(18);
+  void _randomValue() {
+    _indexIdPerson = Random().nextInt(18);
   }
 
   @override
@@ -29,7 +29,7 @@ class _HuntingPageState extends State<HuntingPage> {
           child: Image(
               height: 350,
               fit: BoxFit.fill,
-              image: AssetImage(accountList[indexIdPerson].profilePic)),
+              image: AssetImage(accountList[_indexIdPerson].profilePic)),
         ),
         color: Colors.blue,
       ),
@@ -42,7 +42,7 @@ class _HuntingPageState extends State<HuntingPage> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  randomValue();
+                  _randomValue();
                 });
               },
               child: const CircleAvatar(
@@ -58,7 +58,7 @@ class _HuntingPageState extends State<HuntingPage> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  randomValue();
+                  _randomValue();
                 });
               },
               child: const CircleAvatar(

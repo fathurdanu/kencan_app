@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:kencan_app/bio_page.dart';
 import 'package:kencan_app/model/account.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  double getWidthScreen(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  double getHeightScreen(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +26,17 @@ class ProfilePage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    if (constraints.maxHeight <= 152 &&
-                        constraints.maxHeight > 100) {
+                child: Builder(
+                  builder: (context) {
+                    if (getHeightScreen(context) > 455 &&
+                        getWidthScreen(context) >= 480) {
                       return horizontalMode();
-                    } else if (constraints.maxHeight <= 100) {
-                      return const Text("");
-                    } else {
+                    } else if (getHeightScreen(context) > 651 &&
+                        getWidthScreen(context) < 480 &&
+                        getWidthScreen(context) > 350) {
                       return verticalMode();
+                    } else {
+                      return const Text("");
                     }
                   },
                 ),
@@ -88,38 +99,29 @@ class ProfilePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.blue[300],
-                    radius: 45,
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage(myAccount.profilePic),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    myAccount.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                          "${myAccount.job} | ${myAccount.age.toString()} | ${myAccount.location}")
-                    ],
-                  )
-                ],
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.blue[300],
+                radius: 45,
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage(myAccount.profilePic),
+                ),
               ),
-            ),
+              const SizedBox(height: 10),
+              Text(
+                myAccount.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                  "${myAccount.job} | ${myAccount.age.toString()} | ${myAccount.location}")
+            ],
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -253,31 +255,5 @@ class ProfilePage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           )),
     ]);
-  }
-}
-
-class DocumentPaper extends StatelessWidget {
-  const DocumentPaper({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: Container(),
-        ),
-        Expanded(
-          flex: 5,
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              color: Colors.blue,
-            ),
-          ),
-        )
-      ],
-    );
   }
 }
